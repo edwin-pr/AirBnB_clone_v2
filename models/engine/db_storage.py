@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+DBStorage
+"""
 from os import getenv
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
@@ -72,17 +75,23 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        # Delete an object from the current database session if it is not None
+        """
+        Delete an object from the current database session if it is not None
+        """
         if obj:
             self.session.delete(obj)
 
     def reload(self):
-        # Create all tables in the database and create the current database session
+        """
+        Create all tables in the database and create the current database session
+        """
         Base.metadata.create_all(self.__engine)
         sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sec)
         self.__session = Session()
 
     def close(self):
-        # Close the current database session
+        """
+        Close the current database session
+        """
         self.__session.close()
