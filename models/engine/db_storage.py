@@ -14,6 +14,7 @@ from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
 
+
 class DBStorage:
     __engine = None
     __session = None
@@ -28,21 +29,21 @@ class DBStorage:
         host = getenv("HBNB_MYSQL_HOST")
         env = getenv("HBNB_ENV")
 
-        """" 
+        """"
         Create the database engine
         """
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                                       .format(user, passwd, host, db),
                                       pool_pre_ping=True)
 
-        """ 
+        """
         Drop all tables if the environment is set to test
         """
         if env == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """ 
+        """
         Query and return all objects of a specific class or all classes
         """
         dic = {}
@@ -83,7 +84,8 @@ class DBStorage:
 
     def reload(self):
         """
-        Create all tables in the database and create the current database session
+        Create all tables in the database and create the current
+        database session
         """
         Base.metadata.create_all(self.__engine)
         sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
