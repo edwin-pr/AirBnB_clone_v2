@@ -12,6 +12,11 @@ class TestBaseModel(unittest.TestCase):
     Test case for the BaseModel class.
     """
 
+    def setUp(self):
+        """Set up the test environment."""
+        self.name = 'BaseModelExtended'
+        self.value = BaseModel
+
     def test_base_model_creation(self):
         """
         Test the creation of a BaseModel instance.
@@ -90,30 +95,6 @@ class TestBaseModel(unittest.TestCase):
         model_dict = model.to_dict()
         new_model = BaseModel(**model_dict)
         self.assertEqual(model.to_dict(), new_model.to_dict())
-
-if __name__ == '__main__':
-    unittest.main()
-
-class TestBaseModelExtended(unittest.TestCase):
-    """
-    Test case for the BaseModel class with additional tests.
-    """
-
-    def setUp(self):
-        """
-        Set up the test environment.
-        """
-        self.name = 'BaseModelExtended'
-        self.value = BaseModel
-
-    def tearDown(self):
-        """
-        Clean up after the tests.
-        """
-        try:
-            os.remove('file.json')
-        except:
-            pass
 
     def test_default(self):
         """
@@ -206,6 +187,7 @@ class TestBaseModelExtended(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

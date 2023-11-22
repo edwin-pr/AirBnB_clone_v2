@@ -3,10 +3,12 @@
 from tests.test_models.test_base_model import TestBaseModel
 from models.city import City
 
+
 class TestCity(TestBaseModel):
     """
     Test case for the City class.
-    Inherits from TestBaseModel to ensure basic BaseModel functionality is tested.
+    Inherits from TestBaseModel to ensure basic BaseModel
+    functionality is tested.
     """
 
     def __init__(self, *args, **kwargs):
@@ -30,6 +32,7 @@ class TestCity(TestBaseModel):
         """
         new = self.value()
         self.assertEqual(type(new.name), str)
+
 
 if __name__ == '__main__':
     unittest.main()

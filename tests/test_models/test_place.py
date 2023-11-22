@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 import os
 
+
 class TestPlace(unittest.TestCase):
     """
     Test case for the Place class.
@@ -98,43 +99,21 @@ class TestPlace(unittest.TestCase):
         self.session.add_all([city, user, place, amenity, review])
         self.session.commit()
 
-        # Retrieve the place from the database and check if the relationship exists
+        """
+        Retrieve the place from the database and
+        check if the relationship exists
+        """
         retrieved_place = self.session.query(Place).filter_by(name='Modern Loft').first()
         self.assertEqual(len(retrieved_place.amenities), 1)
         self.assertEqual(retrieved_place.amenities[0].name, 'WiFi')
         self.assertEqual(len(retrieved_place.reviews), 1)
         self.assertEqual(retrieved_place.reviews[0].text, 'Great place!')
 
-if __name__ == '__main__':
-    unittest.main()
-
-class TestPlaceExtended(unittest.TestCase):
-    """
-    Extended test case for the Place class.
-    Inherits from TestCity to ensure basic City functionality is tested.
-    """
-
-    def setUp(self):
-        """
-        Set up the test environment.
-        """
-        self.name = 'Place'
-        self.value = Place
-
-    def tearDown(self):
-        """
-        Clean up after the tests.
-        """
-        try:
-            os.remove('file.json')
-        except:
-            pass
-
     def test_amenities_property(self):
         """
         Test the 'amenities' property of the Place class.
         """
-        place = self.value()
+        place = Place()
         amenity1 = Amenity(name='WiFi')
         amenity2 = Amenity(name='Parking')
 
@@ -149,7 +128,7 @@ class TestPlaceExtended(unittest.TestCase):
         """
         Test the 'amenities' property setter of the Place class.
         """
-        place = self.value()
+        place = Place()
         amenity1 = Amenity(name='WiFi')
         amenity2 = Amenity(name='Parking')
 
@@ -158,6 +137,7 @@ class TestPlaceExtended(unittest.TestCase):
         self.assertEqual(len(place.amenities), 2)
         self.assertIn('WiFi', place.amenities)
         self.assertIn('Parking', place.amenities)
+
 
 if __name__ == '__main__':
     unittest.main()

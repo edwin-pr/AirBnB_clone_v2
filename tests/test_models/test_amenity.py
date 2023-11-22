@@ -9,6 +9,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+
 class TestAmenity(unittest.TestCase):
     """
     Test case for the Amenity class.
@@ -58,10 +59,12 @@ class TestAmenity(unittest.TestCase):
         self.session.add(place)
         self.session.commit()
 
-        # Retrieve the place from the database and check if the relationship exists
+        """ Retrieve the place from the database and
+        check if the relationship exists"""
         retrieved_place = self.session.query(Place).filter_by(name='Cozy Cottage').first()
         self.assertEqual(len(retrieved_place.amenities), 1)
         self.assertEqual(retrieved_place.amenities[0].name, 'WiFi')
+
 
 if __name__ == '__main__':
     unittest.main()

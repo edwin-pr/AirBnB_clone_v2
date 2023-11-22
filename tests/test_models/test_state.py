@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-"""Test case for the State class """
 import unittest
 from models.state import State
 from models.city import City
@@ -7,6 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 import os
+
 
 class TestState(unittest.TestCase):
     """
@@ -60,43 +59,19 @@ class TestState(unittest.TestCase):
         self.session.add_all([state, city])
         self.session.commit()
 
-        # Retrieve the state from the database and check if the relationship exists
+        """Retrieve the state from the database and
+        check if the relationship exists"""
         retrieved_state = self.session.query(State).filter_by(name='New York').first()
         self.assertEqual(len(retrieved_state.cities), 1)
         self.assertEqual(retrieved_state.cities[0].name, 'New York City')
-
-if __name__ == '__main__':
-    unittest.main()
-
-class TestStateExtended(unittest.TestCase):
-    """
-    Extended test case for the State class.
-    Inherits from TestState to ensure basic State functionality is tested.
-    """
-
-    def setUp(self):
-        """
-        Set up the test environment.
-        """
-        self.name = 'State'
-        self.value = State
-
-    def tearDown(self):
-        """
-        Clean up after the tests.
-        """
-        try:
-            os.remove('file.json')
-        except:
-            pass
 
     def test_name(self):
         """
         Test the 'name' attribute of the State class.
         """
-        new = self.value()
+        new = State()
         self.assertEqual(type(new.name), str)
+
 
 if __name__ == '__main__':
     unittest.main()
-
